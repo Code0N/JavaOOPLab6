@@ -43,21 +43,21 @@ class mainFrame(): JFrame() {
         val numbers: Array<Int> = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         tArea.append("   *|")
         for (i in numbers) {
-            tArea.append("    $i")
+            tArea.append("%4d".format(i))
         }
-        tArea.append("    |*")
+        tArea.append("   |*")
         tArea.append("\n———————————————————————————————————————————————————\n")
         for (i in numbers) {
-            tArea.append("   $i |")
+            tArea.append("%2d |".format(i))
             for (j in numbers) {
                 if (tableType){
-                    tArea.append("     " + i*j)
+                    tArea.append("%4d".format(i*j))
                 }
                 else {
-                    tArea.append("     " + i+j)
+                    tArea.append("%4d".format(i+j))
                 }
             }
-            tArea.append("    |  $i")
+            tArea.append("   |%2d".format(i))
             tArea.append("\n")
         }
     }
