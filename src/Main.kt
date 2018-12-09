@@ -7,18 +7,20 @@ import java.awt.event.KeyEvent
 import javax.swing.*
 
 class mainFrame(): JFrame() {
-
-    var selected: Boolean = false
+    val tArea = JTextArea(60, 60)
     init {
         createUI()
     }
 
     private fun createUI() {
         title = "Лабораторная работа №6"
+        layout = FlowLayout()
         createMenu()
+        add(tArea)
         defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         setSize(300, 300)
         setLocationRelativeTo(null)
+        pack()
     }
 
     private fun createMenu() {
@@ -38,19 +40,33 @@ class mainFrame(): JFrame() {
     }
 
     fun react(tableType: Boolean) {
-        if (tableType) {
-            println("Таблица умножения")
+        val numbers: Array<Int> = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        tArea.append("   *|")
+        for (i in numbers) {
+            tArea.append("    $i")
         }
-        else {
-            println("Таблица сложения")
+        tArea.append("    |*")
+        tArea.append("\n———————————————————————————————————————————————————\n")
+        for (i in numbers) {
+            tArea.append("   $i |")
+            for (j in numbers) {
+                if (tableType){
+                    tArea.append("     " + i*j)
+                }
+                else {
+                    tArea.append("     " + i+j)
+                }
+            }
+            tArea.append("    |  $i")
+            tArea.append("\n")
         }
     }
 }
 
 class secondFrame(mf: mainFrame): JFrame() {
-    var mframe: mainFrame? = null
+    var mframe: mainFrame = mf
     init {
-        mframe = mf
+        //mframe = mf
         createUI()
     }
 
@@ -61,10 +77,12 @@ class secondFrame(mf: mainFrame): JFrame() {
 
         val group = ButtonGroup()
         tUmn.addActionListener {
-            mframe!!.react(true)
+            mframe.react(true)
+            this.isVisible = false
         }
         tSlo.addActionListener {
-            mframe!!.react(false)
+            mframe.react(false)
+            this.isVisible = false
         }
         group.add(tUmn)
         group.add(tSlo)
